@@ -6,7 +6,10 @@ import {
     TextInput
  } from 'react-native';
 import styles from '../styles/styles';
- export default class form extends Component {
+import {connect} from 'react-redux';
+import {addTask} from '../redux/actionCreator';
+
+ class form extends Component {
 
     constructor(props){
         super(props);
@@ -27,7 +30,7 @@ import styles from '../styles/styles';
                     placeholder={'Task name'}
                 />
 
-                <TouchableOpacity style={btnForm}  onPress={()=>alert(taskName)} >
+                <TouchableOpacity style={btnForm} onPress={()=>this.props.addTask(taskName)}  >
                     <Text style={txtBtn} >ADD</Text>
                 </TouchableOpacity>
 
@@ -36,3 +39,5 @@ import styles from '../styles/styles';
          );
      }
  }
+
+ export default connect(null,{addTask})(form);

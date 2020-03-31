@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
 import { 
     View,
-    Text
+    Text,
+    FlatList
  } from 'react-native';
 import Form from './form';
 import styles from '../styles/styles';
 import Task from './task';
-export default class Main extends Component {
+import {connect} from 'react-redux';
+import {getInitData} from '../redux/actionCreator';
+
+import getAsyncStorage from '../redux/actionCreator';
+
+class Main extends Component {
+
+
+    // getData=async ()=>{
+    //     const data=await getAsyncStorage();
+    //     console.log(data);
+        
+        
+    // }
+   
+    UNSAFE_componentWillMount (){  
+    
+    }
+
      render() {
          const {header,body,title,txtTitle}=styles;
          return (
@@ -19,7 +38,11 @@ export default class Main extends Component {
                 </View>
 
                 <View style={body} >
-                    <Task />
+                    <FlatList
+                        data={this.props.ArrTask}
+                        renderItem={({item})=><Task task={item} />}
+
+                    />
                 </View>
 
             </View>
@@ -27,3 +50,10 @@ export default class Main extends Component {
          );
      }
  }
+ const mapStateToProps = (state) => {
+     return {
+         ArrTask: state
+     }
+ }
+
+ export default  connect(mapStateToProps,{getInitData})(Main);
