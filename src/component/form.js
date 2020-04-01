@@ -8,7 +8,7 @@ import {
 import styles from '../styles/styles';
 import {connect} from 'react-redux';
 import {addTask} from '../redux/actionCreator';
-
+import setAsyncStorage from '../api/setAsyncStorage';
  class form extends Component {
 
     constructor(props){
@@ -17,7 +17,15 @@ import {addTask} from '../redux/actionCreator';
             taskName:''
         }
     }
-     
+    
+    onPressAddTask=async()=>{
+        await this.props.addTask(this.state.taskName);
+        this.setState({taskName:''});
+        setAsyncStorage(this.props.ArrTask);
+
+    }
+
+
      render() {
          const {form,btnForm,txtBtn,txtInput}=styles;
          const {taskName}=this.state;
@@ -30,7 +38,7 @@ import {addTask} from '../redux/actionCreator';
                     placeholder={'Task name'}
                 />
 
-                <TouchableOpacity style={btnForm} onPress={()=>this.props.addTask(taskName)}  >
+                <TouchableOpacity style={btnForm} onPress={()=>this.onPressAddTask()} >
                     <Text style={txtBtn} >ADD</Text>
                 </TouchableOpacity>
 
@@ -40,4 +48,10 @@ import {addTask} from '../redux/actionCreator';
      }
  }
 
- export default connect(null,{addTask})(form);
+const mapStateToProps = (state) => {
+    return {
+        ArrTask: state
+    }
+}
+
+ export default connect(mapStateToProps,{addTask})(form);

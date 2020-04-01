@@ -1,11 +1,7 @@
 import {createStore} from 'redux';
-const data=[
-    {id:'1',taskName:'Learning English',finish:false},
-    {id:'2',taskName:'Run 5km',finish:true},
-    {id:'3',taskName:'Doing homework',finish:false}
-]
 
-const arrTaskReducer=(state=data,action)=>{
+
+const arrTaskReducer=(state=[],action)=>{
     switch (action.type) {
         case "INIT_DATA":
             return action.data;

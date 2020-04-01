@@ -21,7 +21,7 @@ export function addTask(taskName){
 
 export function getInitData(data){
     return{
-        type:INIT_DATA,
+        type:"INIT_DATA",
         data
     }
 }

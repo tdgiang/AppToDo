@@ -10,20 +10,22 @@ import Task from './task';
 import {connect} from 'react-redux';
 import {getInitData} from '../redux/actionCreator';
 
-import getAsyncStorage from '../redux/actionCreator';
+import getAsyncStorage from '../api/getAsyncStorage';
 
 class Main extends Component {
 
-
-    // getData=async ()=>{
-    //     const data=await getAsyncStorage();
-    //     console.log(data);
-        
-        
-    // }
-   
     UNSAFE_componentWillMount (){  
-    
+       getAsyncStorage()
+       .then(res=>{
+           console.log(res);
+           this.props.getInitData(res);
+       })
+       .catch(err=>{
+           console.log(err);
+           return [];
+           
+       }
+       )
     }
 
      render() {
